@@ -371,7 +371,14 @@ return [
                 [
                     'text' => 'Clientes',
                     'icon' => 'fas fa-user',
-                    'url' => '#',
+                    'url' => '/cliente',
+                    'active' => ['cliente*'],
+                ],
+                [
+                    'text' => 'Locações',
+                    'icon' => 'fas fa-truck-loading',
+                    'url' => '/locacao',
+                    'active' => ['locacao*'],
                 ],
             ],
         ],
@@ -379,6 +386,7 @@ return [
             'text' => 'Cadastros',
             'icon' => 'fas fa-pen-alt',
         ],
+        
         
         // ['header' => 'labels'],
         // [
