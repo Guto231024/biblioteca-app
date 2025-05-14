@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Cliente;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 
 class ClienteController extends Controller
@@ -12,7 +12,7 @@ class ClienteController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(request $request)
+    public function index(Request $request)
     {
         if ($request->ajax()) {
            
@@ -51,8 +51,9 @@ class ClienteController extends Controller
      */
     public function store(Request $request)
     {
-        $user = Auth::user();  
 
+        $user = Auth::user();
+        
         $nome = $request->post('nome');
         $cpf = $request->post('cpf');
         $cep = $request->post('cep');
@@ -64,26 +65,27 @@ class ClienteController extends Controller
         $uf = $request->post('uf');
         $celular = $request->post('celular');
         $email = $request->post('email');
+        
 
-        $edit = new Cliente();
+        $cliente = new Cliente();
 
-        $edit->nome = $nome;
-        $edit->cpf = $cpf;
-        $edit->cep = $cep;
-        $edit->logradouro = $logradouro;
-        $edit->numero = $numero;
-        $edit->complemento = $complemento;
-        $edit->bairro = $bairro;
-        $edit->cidade = $cidade;
-        $edit->uf = $uf;
-        $edit->celular = $celular;
-        $edit->email = $email;
-        $edit->origin_user = $user->name;
-        $edit->last_user = $user->name;
-        $edit->save();
+        $cliente->nome = $nome;
+        $cliente->cpf = $cpf;
+        $cliente->cep = $cep;
+        $cliente->logradouro = $logradouro;
+        $cliente->numero = $numero;
+        $cliente->complemento = $complemento;
+        $cliente->bairro = $bairro;
+        $cliente->cidade = $cidade;
+        $cliente->uf = $uf;
+        $cliente->celular = $celular;
+        $cliente->email = $email;
+        $cliente->origin_user = $user->name;
+        $cliente->last_user = $user->name;
+        $cliente->save();
+
 
         return view('clientes.index');
-
     }
 
     /**
@@ -105,7 +107,7 @@ class ClienteController extends Controller
             'edit' => $edit,
         );
 
-        return view ('clientes.crud', $output);
+        return view('clientes.crud', $output);
     }
 
     /**
@@ -113,9 +115,9 @@ class ClienteController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $user = Auth::user();  
-        $edit = Cliente::find($id);
-        $nome = $request->post('nome');
+        $user = Auth::user();
+
+        $cliente = $request->post('nome');
         $cpf = $request->post('cpf');
         $cep = $request->post('cep');
         $logradouro = $request->post('logradouro');
@@ -127,32 +129,33 @@ class ClienteController extends Controller
         $celular = $request->post('celular');
         $email = $request->post('email');
 
+        $cliente = Cliente::find($id);
 
-        $edit->nome = $nome;
-        $edit->cpf = $cpf;
-        $edit->cep = $cep;
-        $edit->logradouro = $logradouro;
-        $edit->numero = $numero;
-        $edit->complemento = $complemento;
-        $edit->bairro = $bairro;
-        $edit->cidade = $cidade;
-        $edit->uf = $uf;
-        $edit->celular = $celular;
-        $edit->email = $email;
-        $edit->last_user = $user->name;
-        $edit->update();
+        $cliente->nome = $cliente;
+        $cliente->cpf = $cpf;
+        $cliente->cep = $cep;
+        $cliente->logradouro = $logradouro;
+        $cliente->numero = $numero;
+        $cliente->complemento = $complemento;
+        $cliente->bairro = $bairro;
+        $cliente->cidade = $cidade;
+        $cliente->uf = $uf;
+        $cliente->celular = $celular;
+        $cliente->email = $email;
+        $cliente->last_user = $user->name;
+        $cliente->update();
 
         return view('clientes.index');
-
+        
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        $edit = Cliente::find($id);
-        $edit->delete();
+        $cliente = Cliente::find($id);
+        $cliente->delete();
 
         return view('clientes.index');
     }
